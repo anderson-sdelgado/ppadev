@@ -7,11 +7,11 @@
  */
 require_once ('../model/dbutil/Conn.class.php');
 /**
- * Description of EquipDAO
+ * Description of OSDAO
  *
  * @author anderson
  */
-class EquipDAO extends Conn {
+class OSDAO extends Conn {
     //put your code here
     
     /** @var PDOStatement */
@@ -23,8 +23,8 @@ class EquipDAO extends Conn {
     public function dados() {
 
         $select = " SELECT "
-                            . " VEI.VEICULOS_ID AS \"idEquip\" "
-                            . " , VEI.PLACA AS \"placaEquip\" "
+                            . " OS.OS_ID AS \"idOS\" "
+                            . " , OS.NRO AS \"nroOS\" "
                         . " FROM "
                             . " ORD_CARREG ODC "
                             . " , EMBAL_PROD EMB "
@@ -57,9 +57,9 @@ class EquipDAO extends Conn {
                             . " ODC.OSAGRICOLA_ID = OSA.OSAGRICOLA_ID "
                             . " AND "
                             . " OSA.OS_ID = OS.OS_ID "
-                        . " ORDER BY "
-                            . " ODC.ORDCARREG_ID"
-                        . " DESC ";
+                        . " GROUP BY "
+                            . " OS.OS_ID "
+                            . " , OS.NRO ";
         
         $this->Conn = parent::getConn();
         $this->Read = $this->Conn->prepare($select);
