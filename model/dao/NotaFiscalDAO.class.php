@@ -45,4 +45,29 @@ class NotaFiscalDAO extends Conn {
         
     }
     
+    public function pesq($placa) {
+
+        $select = " SELECT "
+                        . " NF.NFENT_ID AS \"idNF\" "
+                        . " , NF.NRO AS \"nroNF\" "
+                    . " FROM "
+                        . "NF_ENT NF "
+                    . " WHERE " 
+                        . " NF.RAZAO_SOCIAL LIKE 'ADUBOS VERA CRUZ LTDA' "
+                        . " AND "
+                        . " NF.DT_HR_LIBER > TO_DATE('12/12/2019', 'DD/MM/YYYY') "
+                    . " ORDER BY "
+                        . " NF.NFENT_ID "
+                    . " DESC ";
+        
+        $this->Conn = parent::getConn();
+        $this->Read = $this->Conn->prepare($select);
+        $this->Read->setFetchMode(PDO::FETCH_ASSOC);
+        $this->Read->execute();
+        $result = $this->Read->fetchAll();
+
+        return $result;
+        
+    }
+    
 }

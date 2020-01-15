@@ -46,4 +46,30 @@ class ItemNotaFiscalDAO extends Conn {
         
     }
     
+    public function pesq($placa) {
+
+        $select = " SELECT "
+                        . " INF.ITNFENT_ID AS \"idItemNF\" "
+                        . " , NF.NFENT_ID AS \"idNF\" "
+                        . " , INF.CD_PROD AS \"codProd\" "
+                    . " FROM " 
+                        . " ITNF_ENT INF "
+                        . " , NF_ENT NF "
+                    . " WHERE "
+                        . " NF.RAZAO_SOCIAL LIKE 'ADUBOS VERA CRUZ LTDA' "
+                        . " AND "
+                        . " NF.DT_HR_LIBER > TO_DATE('12/12/2019', 'DD/MM/YYYY') "
+                        . " AND "
+                        . " INF.NFENT_ID = NF.NFENT_ID ";
+        
+        $this->Conn = parent::getConn();
+        $this->Read = $this->Conn->prepare($select);
+        $this->Read->setFetchMode(PDO::FETCH_ASSOC);
+        $this->Read->execute();
+        $result = $this->Read->fetchAll();
+
+        return $result;
+        
+    }
+    
 }

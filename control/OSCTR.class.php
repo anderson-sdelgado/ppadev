@@ -31,4 +31,24 @@ class OSCTR {
         
     }
     
+    public function pesq($versao, $info) {
+
+        $versao = str_replace("_", ".", $versao);
+        
+        if($versao >= 1.00){
+        
+            $osDAO = new OSDAO();
+
+            $dado = $info['dado'];
+
+            $osDados = array("dados" => $osDAO->pesq($dado));
+            $osDadosRet = json_encode($osDados);
+
+            return $osDadosRet;
+        
+        }
+        
+    }
+    
+    
 }
