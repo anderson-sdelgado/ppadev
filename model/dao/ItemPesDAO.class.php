@@ -5,17 +5,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/dbutil/OCI.class.php');
+require_once ('../model/dbutil/Conn.class.php');
 require_once('../model/dao/AjusteDataHoraDAO.class.php');
 /**
  * Description of ItemPesDAO
  *
  * @author anderson
  */
-class ItemPesDAO extends OCI {
+class ItemPesDAO extends Conn {
     //put your code here
     
-    public function verifItem($idCabec, $item) {
+    public function verifItem($idCabec, $item, $base) {
 
         $select = " SELECT "
                 . " COUNT(*) AS QTDE "
@@ -26,17 +26,17 @@ class ItemPesDAO extends OCI {
                 . " AND "
                 . " CABEC_ID = " . $idCabec;
 
-        $this->Conn = parent::getConn();
-        $stid = oci_parse($this->Conn, $select);
-        oci_execute($stid);
+        $this->Conn = parent::getConn($base);
+        $this->Read = $this->Conn->prepare($select);
+        $this->Read->setFetchMode(PDO::FETCH_ASSOC);
+        $this->Read->execute();
+        $result = $this->Read->fetchAll();
 
-        while ($row = oci_fetch_array($stid, OCI_ASSOC+OCI_RETURN_NULLS)) {
-            foreach ($row as $item) {
-                $v = $item[0];
-            }
+        foreach ($result as $item) {
+            $qtde = $item['QTDE'];
         }
 
-        return $v;
+        return $qtde;
     }
     
     public function insItem($idCabec, $item) {
@@ -45,8 +45,8 @@ class ItemPesDAO extends OCI {
 
         $sql = "INSERT INTO PPA_ITEM ("
                 . " CABEC_ID "
-                . " , NRO_NF "
-                . " , ITEM_NF "
+                . " , NRO_OS "
+                . " , PRODUTO_CD "
                 . " , VALOR_PES"
                 . " , COMENT_FALHA "
                 . " , LATITUDE "
@@ -57,9 +57,9 @@ class ItemPesDAO extends OCI {
                 . " ) "
                 . " VALUES ("
                 . " " . $idCabec
-                . " , " . $item->nroNFItemPes
-                . " , '" . $item->codItNFItemPes . "'"
-                . " , " . $item->valorItemPes
+                . " , " . $item->nroOSItemPes
+                . " , '" . $item->prodItemPes . "'"
+                . " , " . $item->pesoItemPes
                 . " , '" . $item->comentFalhaItemPes . "'"
                 . " , " . $item->latitudeItemPes
                 . " , " . $item->longitudeItemPes
@@ -68,9 +68,9 @@ class ItemPesDAO extends OCI {
                 . " , SYSDATE "
                 . " ) ";
 
-        $this->Conn = parent::getConn();
-        $stid = oci_parse($this->Conn, $sql);
-        oci_execute($stid);
+        $this->Conn = parent::getConn($base);
+        $this->Create = $this->Conn->prepare($sql);
+        $this->Create->execute();
     }
     
 }

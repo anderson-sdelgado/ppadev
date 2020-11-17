@@ -7,30 +7,22 @@
  */
 require_once ('../model/dbutil/Conn.class.php');
 /**
- * Description of FuncDAO
+ * Description of EquipDAO
  *
  * @author anderson
  */
-class FuncDAO extends Conn {
+class EquipDAO extends Conn {
     //put your code here
     
     public function dados($base) {
 
         $select = " SELECT "
-                    . " COLAB.CD AS \"matricFunc\" "
-                    . " , CORR.NOME AS \"nomeFunc\" "
-                . " FROM " 
-                    . " COLAB COLAB "
-                    . " , CORR CORR "
-                    . " , REG_DEMIS DEM " 
-                . " WHERE "
-                    . " COLAB.CD > 10000 "
-                    . " AND COLAB.CORR_ID = CORR.CORR_ID "
-                    . " AND DEM.COLAB_ID IS NULL " 
-                    . " AND COLAB.COLAB_ID = DEM.COLAB_ID(+) "
-                . " ORDER BY " 
-                    . " COLAB.CD "
-                . " ASC ";
+                    . " E.EQUIP_ID AS \"idEquip\" "
+                    . " , E.NRO_EQUIP AS \"nroEquip\" "
+                    . " , E.CLASSOPER_CD AS \"codClasseEquip\" "
+                    . " , CARACTER(E.CLASSOPER_DESCR) AS \"descrClasseEquip\" "
+                . " FROM "
+                    . " V_EQUIP E ";
         
         $this->Conn = parent::getConn($base);
         $this->Read = $this->Conn->prepare($select);

@@ -17,7 +17,7 @@ class LogDAO extends OCI {
     /** @var PDO */
     private $Conn;
 
-    public function salvarDados($dados, $pagina) {
+    public function salvarDados($dados, $pagina, $base) {
 
         $this->Conn = parent::getConn();
 
@@ -34,7 +34,7 @@ class LogDAO extends OCI {
                 . " , :dados "
                 . " )";
 
-        $this->Conn = parent::getConn();
+        $this->Conn = parent::getConn($base);
         $stid = oci_parse($this->Conn, $sql);
         oci_bind_by_name($stid, ":pagina", $pagina, 30);
         oci_bind_by_name($stid, ":dados", $dados, 32000);

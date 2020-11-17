@@ -9,6 +9,6 @@ require_once('../control/PesagemCTR.class.php');
 if (isset($info)):
 
     $pesagemCTR = new PesagemCTR();
-    echo "GRAVOU_" . $pesagemCTR->salvarDados($versao, $info, "inserirdados");
+    echo $pesagemCTR->salvarDados($versao, $info, "inserirdados");
     
 endif;

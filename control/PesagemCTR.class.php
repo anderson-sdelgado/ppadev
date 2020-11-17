@@ -15,6 +15,8 @@ require_once('../model/dao/ItemPesDAO.class.php');
  */
 class PesagemCTR {
     
+    private $base = 2;
+    
     public function salvarDados($versao, $info, $pagina) {
 
         $cabec = $info['cabec'];
@@ -47,16 +49,19 @@ class PesagemCTR {
     
     private function salvarCabec($dadosCabec, $dadosItem) {
         $cabecPesDAO = new CabecPesDAO();
+        $idCabecArray = array();
         foreach ($dadosCabec as $cabec) {
             $v = $cabecPesDAO->verifCabec($cabec);
             if ($v == 0) {
                 $cabecPesDAO->insCabec($cabec);
             }
             $idCabecBD = $cabecPesDAO->idCabec($cabec);
-            $idCabec = $cabec->idCabPes;
+            $idCabecArray[] = array("idCabPes" => $cabec->idCabPes);
+            $this->salvarItem($idCabecBD, $dadosItem);
         }
-        $this->salvarItem($idCabecBD, $dadosItem);
-        return $idCabec;
+        $dadoCabec = array("cabec"=>$idCabecArray);
+        $retCabec = json_encode($dadoCabec);
+        return 'GRAVOU_' . $retCabec;
     }
 
     private function salvarItem($idBolBD, $dadosItem) {
