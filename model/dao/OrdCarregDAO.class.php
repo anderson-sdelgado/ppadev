@@ -26,7 +26,9 @@ class OrdCarregDAO extends Conn {
                             . " ORDCARREG_ID AS \"idBDOrdCarreg\" "
                             . " , PLACA AS \"placaVeicOrdCarreg\" "
                             . " , NRO_OS AS \"nroOSOrdCarreg\" "
-                            . " , PRODUTO_CD AS \"prodOrdCarreg\" "
+                            . " , PRODUTO_CD AS \"codProdOrdCarreg\""
+                            . " , PRODUTO_DESC AS \"descrProdOrdCarreg\""
+                            . " , TO_CHAR(SYSDATE, 'DD/MM/YYYY') AS \"dataOrdCarreg\" "
                         . " FROM "
                             . " V_ORDCARREG_ADUBO ";
         
@@ -46,7 +48,9 @@ class OrdCarregDAO extends Conn {
                             . " ORDCARREG_ID AS \"idOrdCarreg\" "
                             . " , PLACA AS \"placaVeicOrdCarreg\" "
                             . " , NRO_OS AS \"nroOSOrdCarreg\" "
-                            . " , PRODUTO_CD AS \"prodOrdCarreg\""
+                            . " , PRODUTO_CD AS \"codProdOrdCarreg\""
+                            . " , PRODUTO_DESC AS \"descrProdOrdCarreg\""
+                            . " , TO_CHAR(SYSDATE, 'DD/MM/YYYY') AS \"dataOrdCarreg\" "
                         . " FROM "
                             . " V_ORDCARREG_ADUBO "
                         . " WHERE "

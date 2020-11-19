@@ -41,7 +41,7 @@ class CabecPesDAO extends Conn {
         return $qtde;
     }
 
-    public function idCabec($cabec) {
+    public function idCabec($cabec, $base) {
 
         $select = " SELECT "
                     . " ID AS ID "
@@ -75,16 +75,22 @@ class CabecPesDAO extends Conn {
                 . " MATRIC_FUNC "
                 . " , EQUIP_ID "
                 . " , PLACA_VEIC "
-                . " , DTHR "
-                . " , DTHR_CEL "
-                . " , DTHR_TRANS "
+                . " , DTHR_INICIAL "
+                . " , DTHR_INICIAL_CEL "
+                . " , DTHR_INICIAL_TRANS "
+                . " , DTHR_FINAL "
+                . " , DTHR_FINAL_CEL "
+                . " , DTHR_FINAL_TRANS "
                 . " ) "
                 . " VALUES ("
                 . " " . $cabec->matricFuncCabPes
                 . " , " . $cabec->idEquipCabPes
                 . " , '" . $cabec->placaVeicCabPes . "'"
-                . " , " . $ajusteDataHoraDAO->dataHoraGMT($cabec->dthrCabPes)
-                . " , TO_DATE('" . $cabec->dthrCabPes . "','DD/MM/YYYY HH24:MI') "
+                . " , " . $ajusteDataHoraDAO->dataHoraGMT($cabec->dthrInicialCabPes, $base)
+                . " , TO_DATE('" . $cabec->dthrInicialCabPes . "','DD/MM/YYYY HH24:MI') "
+                . " , SYSDATE "
+                . " , " . $ajusteDataHoraDAO->dataHoraGMT($cabec->dthrFinalCabPes, $base)
+                . " , TO_DATE('" . $cabec->dthrFinalCabPes . "','DD/MM/YYYY HH24:MI') "
                 . " , SYSDATE "
                 . " ) ";
 

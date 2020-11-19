@@ -39,7 +39,7 @@ class ItemPesDAO extends Conn {
         return $qtde;
     }
     
-    public function insItem($idCabec, $item) {
+    public function insItem($idCabec, $item, $base) {
 
         $ajusteDataHoraDAO = new AjusteDataHoraDAO();
 
@@ -63,7 +63,7 @@ class ItemPesDAO extends Conn {
                 . " , '" . $item->comentFalhaItemPes . "'"
                 . " , " . $item->latitudeItemPes
                 . " , " . $item->longitudeItemPes
-                . " , " . $ajusteDataHoraDAO->dataHoraGMT($item->dthrItemPes)
+                . " , " . $ajusteDataHoraDAO->dataHoraGMT($item->dthrItemPes, $base)
                 . " , TO_DATE('" . $item->dthrItemPes . "','DD/MM/YYYY HH24:MI') "
                 . " , SYSDATE "
                 . " ) ";

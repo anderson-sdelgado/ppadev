@@ -38,8 +38,8 @@ class AtualAplicCTR {
             } else {
                 $result = $atualAplicDAO->retAtual($idEquip, $this->base);
                 foreach ($result as $item) {
-                    $vn = $item[2];
-                    $vab = $item[1];
+                    $vn = $item['VERSAO_NOVA'];
+                    $vab = $item['VERSAO_ATUAL'];
                 }
                 if (strcmp($va, $vab) <> 0) {
                     $atualAplicDAO->updAtualNova($idEquip, $va, $this->base);

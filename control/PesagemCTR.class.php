@@ -44,18 +44,18 @@ class PesagemCTR {
 
     private function salvarLog($dados, $pagina) {
         $logDAO = new LogDAO();
-        $logDAO->salvarDados($dados, $pagina);
+        $logDAO->salvarDados($dados, $pagina, $this->base);
     }
     
     private function salvarCabec($dadosCabec, $dadosItem) {
         $cabecPesDAO = new CabecPesDAO();
         $idCabecArray = array();
         foreach ($dadosCabec as $cabec) {
-            $v = $cabecPesDAO->verifCabec($cabec);
+            $v = $cabecPesDAO->verifCabec($cabec, $this->base);
             if ($v == 0) {
-                $cabecPesDAO->insCabec($cabec);
+                $cabecPesDAO->insCabec($cabec, $this->base);
             }
-            $idCabecBD = $cabecPesDAO->idCabec($cabec);
+            $idCabecBD = $cabecPesDAO->idCabec($cabec, $this->base);
             $idCabecArray[] = array("idCabPes" => $cabec->idCabPes);
             $this->salvarItem($idCabecBD, $dadosItem);
         }
@@ -67,9 +67,9 @@ class PesagemCTR {
     private function salvarItem($idBolBD, $dadosItem) {
         $itemPesDAO = new ItemPesDAO();
         foreach ($dadosItem as $item) {
-            $v = $itemPesDAO->verifItem($idBolBD, $item);
+            $v = $itemPesDAO->verifItem($idBolBD, $item, $this->base);
             if ($v == 0) {
-                $itemPesDAO->insItem($idBolBD, $item);
+                $itemPesDAO->insItem($idBolBD, $item, $this->base);
             }
         }
     }

@@ -5,13 +5,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-require_once('../model/dbutil/OCI.class.php');
+require_once ('../model/dbutil/Conn.class.php');
 /**
  * Description of InserirDados
  *
  * @author anderson
  */
-class LogDAO extends OCI {
+class LogDAO extends Conn {
     //put your code here
 
     /** @var PDO */
@@ -19,7 +19,7 @@ class LogDAO extends OCI {
 
     public function salvarDados($dados, $pagina, $base) {
 
-        $this->Conn = parent::getConn();
+        $this->Conn = parent::getConn($base);
 
         $sql = "INSERT INTO DADOS_MOBILE ("
                 . " DTHR "
@@ -30,15 +30,14 @@ class LogDAO extends OCI {
                 . " VALUES ("
                 . " SYSDATE "
                 . " , 'PPA' "
-                . " , :pagina "
-                . " , :dados "
+                . " , ? "
+                . " , ? "
                 . " )";
 
-        $this->Conn = parent::getConn($base);
-        $stid = oci_parse($this->Conn, $sql);
-        oci_bind_by_name($stid, ":pagina", $pagina, 30);
-        oci_bind_by_name($stid, ":dados", $dados, 32000);
-        oci_execute($stid);
+        $this->Create = $this->Conn->prepare($sql);
+        $this->Create->bindParam(1, $pagina, PDO::PARAM_STR, 30);
+        $this->Create->bindParam(2, $dados, PDO::PARAM_STR, 32000);
+        $this->Create->execute();
         
     }
 
