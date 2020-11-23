@@ -22,7 +22,7 @@ class CabecPesDAO extends Conn {
                     . " FROM "
                         . " PPA_CABEC "
                     . " WHERE "
-                        . " DTHR_CEL = TO_DATE('" . $cabec->dthrCabPes . "','DD/MM/YYYY HH24:MI')"
+                        . " DTHR_INICIAL_CEL = TO_DATE('" . $cabec->dthrInicialCabPes . "','DD/MM/YYYY HH24:MI')"
                         . " AND "
                         . " MATRIC_FUNC = " . $cabec->matricFuncCabPes
                         . " AND "
@@ -48,7 +48,7 @@ class CabecPesDAO extends Conn {
                 . " FROM "
                     . " PPA_CABEC "
                 . " WHERE "
-                    . " DTHR_CEL = TO_DATE('" . $cabec->dthrCabPes . "','DD/MM/YYYY HH24:MI')"
+                    . " DTHR_INICIAL_CEL = TO_DATE('" . $cabec->dthrInicialCabPes . "','DD/MM/YYYY HH24:MI')"
                     . " AND "
                     . " MATRIC_FUNC = " . $cabec->matricFuncCabPes
                     . " AND "

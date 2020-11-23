@@ -24,7 +24,9 @@ class ItemPesDAO extends Conn {
                 . " WHERE "
                 . " DTHR_CEL = TO_DATE('" . $item->dthrItemPes . "','DD/MM/YYYY HH24:MI')"
                 . " AND "
-                . " CABEC_ID = " . $idCabec;
+                . " CABEC_ID = " . $idCabec
+                . " AND "
+                . " VALOR_PES = " . $item->pesoItemPes;
 
         $this->Conn = parent::getConn($base);
         $this->Read = $this->Conn->prepare($select);
@@ -47,7 +49,7 @@ class ItemPesDAO extends Conn {
                 . " CABEC_ID "
                 . " , NRO_OS "
                 . " , PRODUTO_CD "
-                . " , VALOR_PES"
+                . " , VALOR_PES "
                 . " , COMENT_FALHA "
                 . " , LATITUDE "
                 . " , LONGITUDE "
